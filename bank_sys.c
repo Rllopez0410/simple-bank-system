@@ -1,61 +1,44 @@
-				break;
-			case 4:
-				printf("Withdrawing funds...\n");
-				break;
-			case 5:
-				printf("Logging out...\n");
-				logged_in = false;
-				break;
-			default:
-				printf("Unknown option. Please try again...\n");
-		}
-	}
-	return;
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+#include <time.h>
+
+struct Deposit {
+	float deposit_amount;
+};
+
+struct Withdraw {
+	float withdraw_amount;
+};
+
+typedef enum {
+	access_granted,
+	access_denied
+} ACCT_VARIFY;
+
+struct Account {
+	char user_name[30];
+	char user_password[30];
+	char first_name[30];
+	char last_name[30];
+	char email[30];
+	float checking;
+	float savings;
+	struct Deposit deposit_history[11];
+	struct Withdraw withdraw_history[11];
+};
+
+void create_account_username(char *username, size_t size) {
+	printf("Create a username...\n");
+	scanf("%29s", username);
 }
 
-void customer_log_in(struct Account customer[21], int account_count) {
+void create_account_password(char *password, size_t size) {
+	printf("Create a password...\n");
+	scanf("%29s", password);
+}
 
-	int index;
-	char username_typed[30];
-	char password_typed[30];
-	bool username_verified = false;
-	bool password_verified = false;
-	ACCT_VARIFY status;
-
-	printf("Please type in your username...\n");
-	scanf("%29s", &username_typed);
-	for (int i = 0; i < account_count; i++) {
-		if (strcmp(customer[i].user_name, username_typed) == 0) {
-			username_verified = true;
-			index = i;
-			break;
-		} else {
-			index = -1;
-			continue;
-		}	
-	}
-
-	printf("Please type in your password...\n");
-	scanf("%29s", &password_typed);
-	for (int i = 0; i < account_count; i++) {
-		if (strcmp(customer[i].user_password, password_typed) == 0) {
-			password_verified = true;
-			index = i;
-			break;
-		} else {
-			index = -1;
-			continue;
-		}	
-	}
-	
-	if (username_verified && password_verified) {
-		status = access_granted;
-	} else {
-		status = access_denied;
-	}
-	
-	switch (status) {
-		case access_granted:
-			log_in_menu(customer, index);
-			break;
-		case access_denied:
+void create_account_fname(char *fname, size_t size) {
+	printf("Type your first name...\n");
+	scanf("%29s", fname);
+}
